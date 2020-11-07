@@ -68,7 +68,7 @@ class ezcMailMtaTransport implements ezcMailTransport
         $additionalParameters = "";
         if ( isset( $mail->returnPath ) )
         {
-            $sanitized = preg_replace( '([^' . ezcMail::RETURN_PATH_CHARS . '])', '', $mail->returnPath->email );
+            $sanitized = filter_var( $mail->returnPath->email, FILTER_VALIDATE_EMAIL );
             $additionalParameters = "-f{$sanitized}";
         }
         $success = mail( ezcMailTools::composeEmailAddresses( $mail->to ),
